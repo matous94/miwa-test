@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="center">
+    <div className="center" style={{ display: 'flex' }}>
       <Link to="/characters" style={{ marginRight: '16px' }}>
         <button type="button">Characters</button>
       </Link>
