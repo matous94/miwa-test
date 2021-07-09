@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import useCreateChuncks from '../../hooks/useCreateChuncks';
+import Pagination from '../Pagination';
 
-interface HasName {
+interface ArrayWithName<T> extends Array<T> {
   name: string;
 }
 
@@ -12,14 +14,16 @@ interface Props<T> {
   ListItem: React.FC<{ item: T }>;
 }
 
-const EntityListView = <T extends HasName>({
+const EntityListView = <T extends ArrayWithName<T>>({
   heading,
   getter,
   items,
   ListItem,
 }: Props<T>) => {
+  const [currentPage, setCurrentPage] = React.useState(1);
   const [hasError, setHasError] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(items.length === 0);
+  const itemChuncks = useCreateChuncks(items, { size: 30 });
 
   React.useEffect(() => {
     if (items.length > 0) return;
@@ -36,22 +40,23 @@ const EntityListView = <T extends HasName>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (isLoading) {
+    return <h1 className="center">Loading...</h1>;
+  }
+
   const goBackLink = (
     <Link
       to="/"
       style={{
         marginLeft: '20px',
         marginTop: '20px',
+        marginBottom: '0',
         display: 'inline-block',
       }}
     >
       Go back
     </Link>
   );
-
-  if (isLoading) {
-    return <div className="center">Loading</div>;
-  }
 
   if (hasError) {
     return (
@@ -66,11 +71,27 @@ const EntityListView = <T extends HasName>({
     <>
       {goBackLink}
       <h1 style={{ textAlign: 'center', margin: 0 }}>{heading}</h1>
-      <ul style={{ maxWidth: '720px', margin: '24px auto' }}>
-        {items.map((item) => (
+      <ul
+        style={{ maxWidth: '720px', minHeight: '540px', margin: '20px auto' }}
+      >
+        {itemChuncks[currentPage - 1].map((item) => (
           <ListItem key={item.name} item={item} />
         ))}
       </ul>
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          margin: '24px 0',
+        }}
+      >
+        <Pagination
+          count={itemChuncks.length}
+          current={currentPage}
+          onChange={setCurrentPage}
+        />
+      </div>
     </>
   );
 };

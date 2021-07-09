@@ -20,7 +20,7 @@ test('/characters page fetches characters on mount', async () => {
   expect(heading).toBeInTheDocument();
 
   const listItems = await screen.findAllByRole('listitem');
-  expect(listItems).toHaveLength(82);
+  expect(listItems.length).toBeLessThanOrEqual(30);
 });
 
 test('/vehicles page fetches vehicles on mount', async () => {
@@ -32,5 +32,33 @@ test('/vehicles page fetches vehicles on mount', async () => {
   expect(heading).toBeInTheDocument();
 
   const listItems = await screen.findAllByRole('listitem');
-  expect(listItems).toHaveLength(39);
+  expect(listItems.length).toBeLessThanOrEqual(30);
+});
+
+test('user happy path', async () => {
+  render(<App />);
+  const vehiclesButton = screen.getByRole('button', { name: 'Vehicles' });
+  fireEvent.click(vehiclesButton);
+
+  const vehiclesPage1Items = await screen.findAllByRole('listitem');
+  expect(vehiclesPage1Items).toHaveLength(30);
+
+  const vehiclesPage2Button = screen.getByRole('button', { name: '2' });
+  fireEvent.click(vehiclesPage2Button);
+  const vehiclesPage2Items = screen.getAllByRole('listitem');
+  expect(vehiclesPage2Items).toHaveLength(9);
+
+  const goHomeLink = screen.getByRole('link', { name: 'Go back' });
+  fireEvent.click(goHomeLink);
+
+  const charactersButton = screen.getByRole('button', { name: 'Characters' });
+  fireEvent.click(charactersButton);
+
+  const charactersPage1Items = await screen.findAllByRole('listitem');
+  expect(charactersPage1Items).toHaveLength(30);
+
+  const charactersPage3Button = screen.getByRole('button', { name: '3' });
+  fireEvent.click(charactersPage3Button);
+  const charactersPage3Items = screen.getAllByRole('listitem');
+  expect(charactersPage3Items).toHaveLength(22);
 });
