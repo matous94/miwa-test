@@ -12,7 +12,7 @@ body {
   overflow-x: hidden;
 }
 
-button {
+.navigation-button {
   padding: 10px 20px;
   min-width: 160px;
   border-radius: 10px;
