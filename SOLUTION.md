@@ -2,7 +2,8 @@
 
 - How to run the app
 - The differences between the assignment and the solution
-- The trade offs and decisions I made with the given time estimate of 2 hours in mind, for the assignment, which I exceeded anyway
+  - **the assignment can be find in the [ASSIGNMENT.md](ASSIGNMENT.md)** file
+- The trade offs and decisions I made with the given time estimate of 2 hours in mind, which I exceeded anyway
 - The next steps and possible improvements I would make in real project
 
 ## To run the app
@@ -10,6 +11,11 @@
 ```
 yarn install
 yarn start
+
+// to run the tests
+yarn build:renderer
+yarn build:main
+yarn test
 ```
 
 ## The differences
@@ -26,17 +32,17 @@ I decided to go with the _electron-react-boilerplate_ which I haven't used befor
 
 I have already made few modifications to _eslint_ and _prettier_ configuration, I would continue by customizing it to my liking.
 
-I would also simplify the _package.json_ file by extracting some of the configuration to separate files (jest, electron-builder...).
+I would also simplify the _package.json_ file by extracting some of the configuration to separate files (eg. jest and electron-builder).
 
 ## GraphQL
 
-As I mentioned in the introduction email, I don't have any practical experience with GraphQL. I decided not to use any GraphQL client as Apollo instead I just send a post request with the given query.
+As I mentioned in the introductory email, I don't have any practical experience with GraphQL. For that reason I decided not to use any GraphQL client as Apollo and instead I just send a plain http post request with the given GraphQL query.
 
-It certainly wouldn't be any problem to learn more about it in the next week or two.
+I am starting a GraphQL tutorial as it is something I wanted to learn anyway.
 
 ## Pagination
 
-I am not sure if the pagination should have happened already on the server and therefore send new request for each page. It would certainly make sense to avoid requesting too much data. I took the easier way and I fetch all items for given entity at once.
+I am not sure if the pagination should have happened already when requesting the data and therefore send new request for each page separately. It would certainly make sense to avoid requesting too much data. I took the easier way and I fetch all items for given entity at once.
 
 One of the reasons I've chosen this method is that the list should be displayed sorted but it seems to me that the GraphQL API doesn't support sorting or at least I couldn't figure out how.
 
@@ -58,4 +64,4 @@ I haven't really spent much time thinking about styling. I like to use _CSS-in-J
 
 ## Store
 
-I have implemented simple data store based on the React _context_ API. In a real project I would choose some state management library depending on the requirements. Lately I like to use _easy-peasy_ library which uses Redux under the hood, or Redux itself.
+I have implemented simple data store based on the React _context_ API. In a real project I would choose a state management library depending on the requirements. Lately I like to use _easy-peasy_ library which uses Redux under the hood, or Redux itself.
