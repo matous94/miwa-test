@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useCreateChuncks from '../../hooks/useCreateChuncks';
 import Pagination from '../Pagination';
 
-interface ArrayWithName<T> extends Array<T> {
+interface HasName {
   name: string;
 }
 
@@ -14,7 +14,7 @@ interface Props<T> {
   ListItem: React.FC<{ item: T }>;
 }
 
-const EntityListView = <T extends ArrayWithName<T>>({
+const EntityListView = <T extends HasName>({
   heading,
   getter,
   items,
