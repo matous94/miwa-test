@@ -20,7 +20,7 @@ test('/characters page fetches characters on mount', async () => {
   expect(heading).toBeInTheDocument();
 
   const listItems = await screen.findAllByRole('listitem');
-  expect(listItems.length).toBeLessThanOrEqual(30);
+  expect(listItems).toHaveLength(30);
 });
 
 test('/vehicles page fetches vehicles on mount', async () => {
@@ -32,7 +32,7 @@ test('/vehicles page fetches vehicles on mount', async () => {
   expect(heading).toBeInTheDocument();
 
   const listItems = await screen.findAllByRole('listitem');
-  expect(listItems.length).toBeLessThanOrEqual(30);
+  expect(listItems).toHaveLength(30);
 });
 
 test('user happy path', async () => {

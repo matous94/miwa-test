@@ -9,14 +9,14 @@ interface HasName {
 
 interface Props<T> {
   heading: string;
-  getter: () => Promise<void>;
+  getItems: () => Promise<void>;
   items: T[];
   ListItem: React.FC<{ item: T }>;
 }
 
-const EntityListView = <T extends HasName>({
+const EntityPage = <T extends HasName>({
   heading,
-  getter,
+  getItems,
   items,
   ListItem,
 }: Props<T>) => {
@@ -28,7 +28,7 @@ const EntityListView = <T extends HasName>({
   React.useEffect(() => {
     if (items.length > 0) return;
     setIsLoading(true);
-    getter()
+    getItems()
       .then(() => {
         return setIsLoading(false);
       })
@@ -96,4 +96,4 @@ const EntityListView = <T extends HasName>({
   );
 };
 
-export default EntityListView;
+export default EntityPage;

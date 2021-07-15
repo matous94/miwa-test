@@ -1,7 +1,7 @@
 import * as React from 'react';
 import CharacterListItem from './CharacterListItem';
 import { useGlobalState } from '../../store/store';
-import EntityListView from '../EntityListView';
+import EntityPage from '../EntityPage';
 
 const CharactersPage: React.FC = () => {
   const [globalState, actions] = useGlobalState();
@@ -18,9 +18,9 @@ const CharactersPage: React.FC = () => {
   );
 
   return (
-    <EntityListView
+    <EntityPage
       heading="Characters"
-      getter={actions.getCharacters}
+      getItems={actions.getCharacters}
       items={sortedCharacters}
       ListItem={CharacterListItem}
     />

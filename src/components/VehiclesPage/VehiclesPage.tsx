@@ -1,7 +1,7 @@
 import * as React from 'react';
 import VehicleListItem from './VehicleListItem';
 import { useGlobalState } from '../../store/store';
-import EntityListView from '../EntityListView';
+import EntityPage from '../EntityPage';
 
 const VehiclesPage: React.FC = () => {
   const [globalState, actions] = useGlobalState();
@@ -18,9 +18,9 @@ const VehiclesPage: React.FC = () => {
   );
 
   return (
-    <EntityListView
+    <EntityPage
       heading="Vehicles"
-      getter={actions.getVehicles}
+      getItems={actions.getVehicles}
       items={sortedVehicles}
       ListItem={VehicleListItem}
     />
